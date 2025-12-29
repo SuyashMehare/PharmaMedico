@@ -41,7 +41,7 @@ export const ENDPOINTS = {
         user: {
             createOrder: PHARMACY_BACKEND + '/api/v1' + '/users/order',
             getOrderHistory: PHARMACY_BACKEND + '/api/v1' + '/users/order/history',
-            sendOrderAmount: 'http://localhost:5222/rezorpay/sent'
+            sendOrderAmount: RAZROPAY_BACKEND + '/rezorpay/sent'
         }
 
     },
