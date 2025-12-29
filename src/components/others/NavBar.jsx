@@ -34,8 +34,8 @@ const Navbar = () => {
 
   const handleLogout = () => {
     // Clear user data and redirect
-    localStorage.removeItem('role');
-    localStorage.removeItem('token');
+    localStorage.removeItem('pharmacy_token');
+    localStorage.removeItem('pharmacy_role');
     window.location.href = '/auth'; // Redirect to login page
   };
 
