@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { User, LockKeyhole, Shield } from 'lucide-react';
 import UserSignup from '../components/auth/UserSignup';
 import UserLogin from '../components/auth/UserLogin';
@@ -18,12 +18,15 @@ const AuthTabs = () => {
     { id: 'adminSignup', label: 'Admin Signup', icon: <Shield size={18} /> },
   ];
 
-  if(getRole() == "regular")
-    return navigation('.'+FRONTEND_ROUTES.products);
-  
-  if(getRole() == "admin")
-    return navigation(FRONTEND_ROUTES.admin_dashboard);
+  useEffect(() => {
+    if(getRole() == "regular")
+      return navigation(FRONTEND_ROUTES.products);
+    
+    if(getRole() == "admin")
+      return navigation(FRONTEND_ROUTES.admin_dashboard);
+  }, [])
 
+  
   return (
     <div className="max-w-md mx-auto bg-white rounded-lg shadow-md overflow-hidden mt-10">
       <div className="flex border-b">
