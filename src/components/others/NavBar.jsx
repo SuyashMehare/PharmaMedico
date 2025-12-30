@@ -60,8 +60,8 @@ const Navbar = () => {
             ) : (
               <>
                 <NavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
-                <NavItem href="/user/cart" icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
-                <NavItem href={FRONTEND_ROUTES.admin_exeuctableOrders} icon={<Clock className="h-5 w-5" />} text="Orders" />
+                <NavItem href={FRONTEND_ROUTES.user_cart} icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
+                <NavItem href={FRONTEND_ROUTES.user_order_history} icon={<Clock className="h-5 w-5" />} text="Orders" />
                 <NavItem href="/notifications" icon={<Bell className="h-5 w-5" />} text="Notifications" />
                 <NavItem href="/profile" icon={<User className="h-5 w-5" />} text="Profile" />
                 <NavItem href="/upload" icon={<Upload className="h-5 w-5" />} text="Upload Prescription" />
@@ -121,8 +121,8 @@ const Navbar = () => {
             ) : (
               <>
                 <MobileNavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
-                <MobileNavItem href="/cart" icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
-                <MobileNavItem href="/orders" icon={<Clock className="h-5 w-5" />} text="Orders" />
+                <MobileNavItem href={FRONTEND_ROUTES.user_cart} icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
+                <MobileNavItem href={FRONTEND_ROUTES.user_order_history} icon={<Clock className="h-5 w-5" />} text="Orders" />
                 <MobileNavItem href="/notifications" icon={<Bell className="h-5 w-5" />} text="Notifications" />
                 <MobileNavItem href="/profile" icon={<User className="h-5 w-5" />} text="Profile" />
                 <MobileNavItem href="/upload" icon={<Upload className="h-5 w-5" />} text="Upload Prescription" />
