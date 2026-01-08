@@ -7,11 +7,12 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { ENDPOINTS } from "../../constants/backend_urls";
+import { getToken } from "../../utils/localStorage";
 
 const IMAGE_ADDR = 'https://i.guim.co.uk/img/media/20491572b80293361199ca2fc95e49dfd85e1f42/0_236_5157_3094/master/5157.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=fc5fad5b6c2b545b7143b9787d0c90b1';
 
 export default function ProductCard({ product }) {
-    const [priceAlert, setPriceAlert] = useState(false);
+    const [priceAlert, setPriceAlert] = useState(product?.isSubscribed || false);
 
     function addToCartHandler() {
         store.dispatch(addToCart({
@@ -28,14 +29,19 @@ export default function ProductCard({ product }) {
 
     async function togglePriceAlert() {
         setPriceAlert(!priceAlert);
-        // Here you would typically make an API call to your backend
-        // to add/remove this product from the user's price watchlist
+        let endpoint = priceAlert ? ENDPOINTS.product.user.unSubscribeProduct:
+        ENDPOINTS.product.user.subscribeProduct;
 
-        const endpoint = ENDPOINTS.product.user.subscribeProduct ||
-        ENDPOINTS.product.user.unSubscribeProduct;
+        const res = await axios.post(endpoint+ '/' + product._id,
+            { productId: product._id }, 
+            {headers: {Authorization: `Bearer ${getToken()}`}}
+        );    
 
-        const res = await axios.post(endpoint,
-            { productId: product._id });    
+        const status = res.status;
+        if(status == 201 || status == 200) {
+            setPriceAlert(!priceAlert);
+        }    
+
 
         toast.info(`Price alert ${priceAlert ? 'removed' : 'added'} for ${product.title}`);
     }
