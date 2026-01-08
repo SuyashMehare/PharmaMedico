@@ -16,7 +16,9 @@ export default function Products() {
     async function fetchAllProducts() {
         try {
             setLoading(true);
-            const res = await axios.get(ENDPOINTS.product.user.getAllProducts);
+            const res = await axios.get(ENDPOINTS.product.user.getAllProducts, {
+                headers: {Authorization: `Bearer ${getToken()}`}
+            });
             setProducts(res.data.data.products);
         } catch (err) {
             setError(err.response?.data?.message || "Failed to fetch products");
