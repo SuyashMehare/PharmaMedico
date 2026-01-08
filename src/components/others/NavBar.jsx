@@ -92,7 +92,7 @@ const Navbar = () => {
                 </div> :
                 <div className="flex items-center gap-2 text-sm font-medium">
                   <Link
-                    href={FRONTEND_ROUTES.login}
+                    to={FRONTEND_ROUTES.login}
                     className="relative text-white/90 transition-colors duration-200 hover:text-white
                after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0
                after:bg-white after:transition-all after:duration-300 hover:after:w-full"
@@ -104,7 +104,7 @@ const Navbar = () => {
                   <span className="text-white/60">/</span>
 
                   <Link
-                    href={FRONTEND_ROUTES.login}
+                    to={FRONTEND_ROUTES.login}
                     className="relative text-white/90 transition-colors duration-200 hover:text-white
                after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0
                after:bg-white after:transition-all after:duration-300 hover:after:w-full"

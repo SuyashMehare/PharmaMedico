@@ -21,6 +21,7 @@ export const ENDPOINTS = {
         user: {
             getAllProducts: PHARMACY_BACKEND + '/api/v1' + '/users',
             getSingleProdcut: PHARMACY_BACKEND + '/api/v1' + '/users/single',
+            getProductById: PHARMACY_BACKEND + '/api/v1' + '/products', // :productId
             subscribeProduct: PHARMACY_BACKEND + '/api/v1' + '/users/product/subscribe',
             unSubscribeProduct: PHARMACY_BACKEND + '/api/v1' + '/users/product/unsubscribe'
         },
