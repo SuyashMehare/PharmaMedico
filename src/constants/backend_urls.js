@@ -47,5 +47,10 @@ export const ENDPOINTS = {
 
     },
 
-
+    others: {
+        admin: {},
+        user: {
+            notifications: PHARMACY_BACKEND + '/api/v1' + '/users/notifications'
+        }
+    }
 }
