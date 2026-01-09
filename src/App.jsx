@@ -13,6 +13,7 @@ import ProductDetail from './pages/ProductDetail'
 import Navbar from './components/others/NavBar'
 import UserCart from './pages/UserCart'
 import { Home } from './pages/Home'
+import ProductManagement from './pages/AdminProductManagement/ProductManagement'
 
 const routeComponent = [
   { route: '/', component: <Home/> },
@@ -27,6 +28,7 @@ const routeComponent = [
 
   { route: FRONTEND_ROUTES.admin_dashboard, component: <AdminDashboard/>},
   { route: FRONTEND_ROUTES.admin_exeuctableOrders, component: <AdminExecutableOrders/>},
+  { route: FRONTEND_ROUTES.admin_products, component: <ProductManagement/>}
 
 ]
 
