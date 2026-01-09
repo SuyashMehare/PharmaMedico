@@ -10,6 +10,7 @@ export const FRONTEND_ROUTES =  {
     user_cart: 'user/cart',
 
     // admin
-    admin_dashboard: 'admin/dashboard',
-    admin_exeuctableOrders: 'admin/executableOrders',
+    admin_dashboard: '/admin/dashboard',
+    admin_exeuctableOrders: '/admin/executableOrders',
+    admin_products: '/admin/products'
 }

@@ -2,10 +2,12 @@ import { useState } from 'react';
 import { Mail, Lock, Shield } from 'lucide-react';
 import axios from 'axios';
 import { ENDPOINTS } from '../../constants/backend_urls';
+import { useNavigate } from 'react-router-dom';
 import { setRole, setToken } from '../../utils/localStorage';
 import { FRONTEND_ROUTES } from '../../constants/frontend_urls';
 
 const AdminLogin = () => {
+  const navigation = useNavigate();
   const [formData, setFormData] = useState({
     email: '',
     password: ''
@@ -32,6 +34,7 @@ const AdminLogin = () => {
     const { token } = res.data.data;
     setToken(token);
     setRole('admin');
+
 
     return navigation(FRONTEND_ROUTES.admin_dashboard)
   };

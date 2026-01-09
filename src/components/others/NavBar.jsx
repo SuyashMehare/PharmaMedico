@@ -59,10 +59,10 @@ const Navbar = () => {
                 </>
               : role === 'admin' ? (
               <>
-                <NavItem href="/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} text="Dashboard" />
-                <NavItem href="/orders" icon={<Users className="h-5 w-5" />} text="User Orders" />
-                <NavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
-                <NavItem href="/messages" icon={<MessageSquare className="h-5 w-5" />} text="Messages" />
+                <NavItem href="admin/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} text="Dashboard" />
+                <NavItem href="admin/executableOrders" icon={<Users className="h-5 w-5" />} text="User Orders" />
+                <NavItem href="admin/products" icon={<Package className="h-5 w-5" />} text="Products" />
+                <NavItem href="admin/messages" icon={<MessageSquare className="h-5 w-5" />} text="Messages" />
               </>
             ) : (
               <>
@@ -173,10 +173,10 @@ const Navbar = () => {
               </> :
               role === 'admin' ? (
               <>
-                <MobileNavItem href="/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} text="Dashboard" />
-                <MobileNavItem href="/orders" icon={<Users className="h-5 w-5" />} text="User Orders" />
-                <MobileNavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
-                <MobileNavItem href="/messages" icon={<MessageSquare className="h-5 w-5" />} text="Messages" />
+                <MobileNavItem href="admin/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} text="Dashboard" />
+                <MobileNavItem href="admin/executableOrders" icon={<Users className="h-5 w-5" />} text="User Orders" />
+                <MobileNavItem href="admin/products" icon={<Package className="h-5 w-5" />} text="Products" />
+                <MobileNavItem href="admin/messages" icon={<MessageSquare className="h-5 w-5" />} text="Messages" />
               </>
             ) : (
               <>
