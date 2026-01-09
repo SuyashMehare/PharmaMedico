@@ -17,17 +17,34 @@ import {
 import Button from './Button'; // Import your existing Button component
 import { Link, useLocation } from 'react-router-dom';
 import { FRONTEND_ROUTES } from '../../constants/frontend_urls';
+import NotificationsDropdown from '../notifications/NotificationsDropdown';
+import axios from 'axios';
+import { ENDPOINTS } from '../../constants/backend_urls';
+import { getToken } from '../../utils/localStorage';
 
 const Navbar = () => {
   const [role, setRole] = useState(null);
+  const [notifications, setNotifications] = useState([]);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const location  = useLocation();
+  const location = useLocation();
 
+  async function fetchNotifications() {
+    const res = await axios.get(ENDPOINTS.others.user.notifications, {
+      headers: { Authorization: `Bearer ${getToken()}`}
+    })
+
+    setNotifications(res.data.data)
+  }
   // Get role from localStorage (simulating your utility function)
   useEffect(() => {
     const storedRole = localStorage.getItem('pharmacy_role'); // Default to regular if not found
     setRole(storedRole);
-  },[location.pathname]);
+  }, [location.pathname]);
+
+
+  useEffect(() => {
+    fetchNotifications()
+  }, [])
 
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
@@ -57,24 +74,25 @@ const Navbar = () => {
                   <NavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
                   <NavItem href={FRONTEND_ROUTES.user_cart} icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
                 </>
-              : role === 'admin' ? (
-              <>
-                <NavItem href="admin/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} text="Dashboard" />
-                <NavItem href="admin/executableOrders" icon={<Users className="h-5 w-5" />} text="User Orders" />
-                <NavItem href="admin/products" icon={<Package className="h-5 w-5" />} text="Products" />
-                <NavItem href="admin/messages" icon={<MessageSquare className="h-5 w-5" />} text="Messages" />
-              </>
-            ) : (
-              <>
-                <NavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
-                <NavItem href={FRONTEND_ROUTES.user_cart} icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
-                <NavItem href={FRONTEND_ROUTES.user_order_history} icon={<Clock className="h-5 w-5" />} text="Orders" />
-                <NavItem href="/notifications" icon={<Bell className="h-5 w-5" />} text="Notifications" />
-                <NavItem href="/profile" icon={<User className="h-5 w-5" />} text="Profile" />
-                <NavItem href="/upload" icon={<Upload className="h-5 w-5" />} text="Upload Prescription" />
-                <NavItem href="/health" icon={<Activity className="h-5 w-5" />} text="Health Report" />
-              </>
-            )
+                : role === 'admin' ? (
+                  <>
+                    <NavItem href="admin/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} text="Dashboard" />
+                    <NavItem href="admin/executableOrders" icon={<Users className="h-5 w-5" />} text="User Orders" />
+                    <NavItem href="admin/products" icon={<Package className="h-5 w-5" />} text="Products" />
+                    <NavItem href="admin/messages" icon={<MessageSquare className="h-5 w-5" />} text="Messages" />
+                  </>
+                ) : (
+                  <>
+                    <NavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
+                    <NavItem href={FRONTEND_ROUTES.user_cart} icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
+                    <NavItem href={FRONTEND_ROUTES.user_order_history} icon={<Clock className="h-5 w-5" />} text="Orders" />
+                    {/* <NavItem href="/notifications" icon={<Bell className="h-5 w-5" />} text="Notifications" /> */}
+                    <NotificationsDropdown  notifications={notifications}/>
+                    <NavItem href="/profile" icon={<User className="h-5 w-5" />} text="Profile" />
+                    <NavItem href="/upload" icon={<Upload className="h-5 w-5" />} text="Upload Prescription" />
+                    <NavItem href="/health" icon={<Activity className="h-5 w-5" />} text="Health Report" />
+                  </>
+                )
             }
 
             {/* Logout Button - Desktop */}
@@ -96,7 +114,7 @@ const Navbar = () => {
                     className="relative text-white/90 transition-colors duration-200 hover:text-white
                after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0
                after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-                onClick={() => console.log(FRONTEND_ROUTES.login)}
+                    onClick={() => console.log(FRONTEND_ROUTES.login)}
                   >
                     Login
                   </Link>
@@ -125,27 +143,27 @@ const Navbar = () => {
               icon={<LogOut className="h-4 w-4" />}
               onClick={handleLogout}
               className="md:hidden"
-            />: <div className="flex items-center gap-2 text-sm font-medium">
-                  <Link
-                    href={FRONTEND_ROUTES.login}
-                    className="relative text-white/90 transition-colors duration-200 hover:text-white
+            /> : <div className="flex items-center gap-2 text-sm font-medium">
+              <Link
+                href={FRONTEND_ROUTES.login}
+                className="relative text-white/90 transition-colors duration-200 hover:text-white
                after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0
                after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-                  >
-                    Login
-                  </Link>
+              >
+                Login
+              </Link>
 
-                  <span className="text-white/60">/</span>
+              <span className="text-white/60">/</span>
 
-                  <Link
-                    href={FRONTEND_ROUTES.login}
-                    className="relative text-white/90 transition-colors duration-200 hover:text-white
+              <Link
+                href={FRONTEND_ROUTES.login}
+                className="relative text-white/90 transition-colors duration-200 hover:text-white
                after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0
                after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-                  >
-                    Sign Up
-                  </Link>
-                </div>}
+              >
+                Sign Up
+              </Link>
+            </div>}
 
             <button
               onClick={toggleMobileMenu}
@@ -167,62 +185,62 @@ const Navbar = () => {
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {
               role == null ?
-              <>
-                <MobileNavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
-                <MobileNavItem href={FRONTEND_ROUTES.user_cart} icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
-              </> :
-              role === 'admin' ? (
-              <>
-                <MobileNavItem href="admin/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} text="Dashboard" />
-                <MobileNavItem href="admin/executableOrders" icon={<Users className="h-5 w-5" />} text="User Orders" />
-                <MobileNavItem href="admin/products" icon={<Package className="h-5 w-5" />} text="Products" />
-                <MobileNavItem href="admin/messages" icon={<MessageSquare className="h-5 w-5" />} text="Messages" />
-              </>
-            ) : (
-              <>
-                <MobileNavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
-                <MobileNavItem href={FRONTEND_ROUTES.user_cart} icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
-                <MobileNavItem href={FRONTEND_ROUTES.user_order_history} icon={<Clock className="h-5 w-5" />} text="Orders" />
-                <MobileNavItem href="/notifications" icon={<Bell className="h-5 w-5" />} text="Notifications" />
-                <MobileNavItem href="/profile" icon={<User className="h-5 w-5" />} text="Profile" />
-                <MobileNavItem href="/upload" icon={<Upload className="h-5 w-5" />} text="Upload Prescription" />
-                <MobileNavItem href="/health" icon={<Activity className="h-5 w-5" />} text="Health Report" />
-              </>
-            )
+                <>
+                  <MobileNavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
+                  <MobileNavItem href={FRONTEND_ROUTES.user_cart} icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
+                </> :
+                role === 'admin' ? (
+                  <>
+                    <MobileNavItem href="admin/dashboard" icon={<LayoutDashboard className="h-5 w-5" />} text="Dashboard" />
+                    <MobileNavItem href="admin/executableOrders" icon={<Users className="h-5 w-5" />} text="User Orders" />
+                    <MobileNavItem href="admin/products" icon={<Package className="h-5 w-5" />} text="Products" />
+                    <MobileNavItem href="admin/messages" icon={<MessageSquare className="h-5 w-5" />} text="Messages" />
+                  </>
+                ) : (
+                  <>
+                    <MobileNavItem href="/products" icon={<Package className="h-5 w-5" />} text="Products" />
+                    <MobileNavItem href={FRONTEND_ROUTES.user_cart} icon={<ShoppingCart className="h-5 w-5" />} text="Cart" />
+                    <MobileNavItem href={FRONTEND_ROUTES.user_order_history} icon={<Clock className="h-5 w-5" />} text="Orders" />
+                    <MobileNavItem href="/notifications" icon={<Bell className="h-5 w-5" />} text="Notifications" />
+                    <MobileNavItem href="/profile" icon={<User className="h-5 w-5" />} text="Profile" />
+                    <MobileNavItem href="/upload" icon={<Upload className="h-5 w-5" />} text="Upload Prescription" />
+                    <MobileNavItem href="/health" icon={<Activity className="h-5 w-5" />} text="Health Report" />
+                  </>
+                )
             }
 
             {/* Mobile Logout Button */}
-            { role ?
+            {role ?
               <div className="px-3 py-2">
-              {role && <Button
-                variant="danger"
-                size="sm"
-                icon={<LogOut className="h-4 w-4" />}
-                onClick={handleLogout}
-                fullWidth
-              />}
-            </div> : 
+                {role && <Button
+                  variant="danger"
+                  size="sm"
+                  icon={<LogOut className="h-4 w-4" />}
+                  onClick={handleLogout}
+                  fullWidth
+                />}
+              </div> :
               <div className="flex items-center gap-2 text-sm font-medium">
-                  <Link
-                    href={FRONTEND_ROUTES.login}
-                    className="relative text-white/90 transition-colors duration-200 hover:text-white
+                <Link
+                  href={FRONTEND_ROUTES.login}
+                  className="relative text-white/90 transition-colors duration-200 hover:text-white
                after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0
                after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-                  >
-                    Login
-                  </Link>
+                >
+                  Login
+                </Link>
 
-                  <span className="text-white/60">/</span>
+                <span className="text-white/60">/</span>
 
-                  <Link
-                    href={FRONTEND_ROUTES.login}
-                    className="relative text-white/90 transition-colors duration-200 hover:text-white
+                <Link
+                  href={FRONTEND_ROUTES.login}
+                  className="relative text-white/90 transition-colors duration-200 hover:text-white
                after:absolute after:left-0 after:-bottom-0.5 after:h-[2px] after:w-0
                after:bg-white after:transition-all after:duration-300 hover:after:w-full"
-                  >
-                    Sign Up
-                  </Link>
-                </div>
+                >
+                  Sign Up
+                </Link>
+              </div>
             }
           </div>
         </div>

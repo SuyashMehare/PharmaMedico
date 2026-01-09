@@ -14,6 +14,7 @@ import Navbar from './components/others/NavBar'
 import UserCart from './pages/UserCart'
 import { Home } from './pages/Home'
 import ProductManagement from './pages/AdminProductManagement/ProductManagement'
+import NotificationsPage from './pages/NotificationsPage'
 
 const routeComponent = [
   { route: '/', component: <Home/> },
@@ -22,6 +23,7 @@ const routeComponent = [
   { route: FRONTEND_ROUTES.productDetail, component: <ProductDetail/>},
   { route: FRONTEND_ROUTES.profile, component: <Profile/>},
 
+  { route: FRONTEND_ROUTES.notificationDetail, component: <NotificationsPage/> },
   { route: FRONTEND_ROUTES.user_order_history, component: <UserOrderHistory/>},
   { route: 'user/order/history' + '/:orderId', component: <UserOrderHistoryDetails/>},
   { route: FRONTEND_ROUTES.user_cart, component: <UserCart/>},

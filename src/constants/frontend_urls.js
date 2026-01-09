@@ -8,6 +8,7 @@ export const FRONTEND_ROUTES =  {
     products: '/products',
     productDetail: '/products/:productId',
     user_cart: 'user/cart',
+    notificationDetail: '/notifications',
 
     // admin
     admin_dashboard: '/admin/dashboard',
