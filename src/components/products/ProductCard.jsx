@@ -29,18 +29,18 @@ export default function ProductCard({ product }) {
 
     async function togglePriceAlert() {
         setPriceAlert(!priceAlert);
-        let endpoint = priceAlert ? ENDPOINTS.product.user.unSubscribeProduct:
-        ENDPOINTS.product.user.subscribeProduct;
+        let endpoint = priceAlert ? ENDPOINTS.product.user.unSubscribeProduct :
+            ENDPOINTS.product.user.subscribeProduct;
 
-        const res = await axios.post(endpoint+ '/' + product._id,
-            { productId: product._id }, 
-            {headers: {Authorization: `Bearer ${getToken()}`}}
-        );    
+        const res = await axios.post(endpoint + '/' + product._id,
+            { productId: product._id },
+            { headers: { Authorization: `Bearer ${getToken()}` } }
+        );
 
         const status = res.status;
-        if(status == 201 || status == 200) {
+        if (status == 201 || status == 200) {
             setPriceAlert(!priceAlert);
-        }    
+        }
 
 
         toast.info(`Price alert ${priceAlert ? 'removed' : 'added'} for ${product.title}`);
@@ -51,7 +51,7 @@ export default function ProductCard({ product }) {
             {/* Product Image */}
             <div className="relative group">
                 <img
-                    src={product.image || IMAGE_ADDR}
+                    src={product.banner_url || IMAGE_ADDR}
                     alt={product.title}
                     className="w-full h-48 object-cover rounded-md group-hover:opacity-90 transition-opacity"
                 />
@@ -112,6 +112,7 @@ export default function ProductCard({ product }) {
 
             <Link
                 to={`/products/${product._id}`}
+                state={{ from: location.pathname + location.search }}
                 className="text-sm text-center text-blue-600 dark:text-blue-400 hover:underline mt-2"
             >
                 View details

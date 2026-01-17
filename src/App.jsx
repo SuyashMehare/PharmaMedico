@@ -1,5 +1,6 @@
 
 import { BrowserRouter, Route, Router, Routes } from 'react-router-dom'
+import "./components/charts/chartRegister";
 import './App.css'
 import AuthTabs from './pages/AuthTabs'
 import { FRONTEND_ROUTES } from './constants/frontend_urls'
